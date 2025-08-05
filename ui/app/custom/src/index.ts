@@ -7,6 +7,8 @@ import {pageAssetsReducer, pageAssetsProvider} from "@openremote/manager/pages/p
 import {pageMapReducer, pageMapProvider} from "@openremote/manager/pages/page-map";
 import "./pages/page-custom";
 import {pageCustomProvider} from "./pages/page-custom";
+import "./pages/page-overview";
+import {pageOverviewProvider} from "./pages/page-overview";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -23,10 +25,20 @@ export const store = configureStore({
 const orApp = new OrApp(store);
 
 export const DefaultPagesConfig: PageProvider<any>[] = [
+    pageOverviewProvider(store), // New overview page
     pageMapProvider(store), // Standard manager map page
     pageAssetsProvider(store), // Standard manager asset page
-    pageCustomProvider(store) // Custom page
+    pageCustomProvider(store) // Original custom page
 ];
+
+// Header item for Overview page
+export function headerItemOverview<S extends AppStateKeyed, A extends AnyAction>(orApp: OrApp<S>): HeaderItem {
+    return {
+        icon: "view-dashboard",
+        href: "overview",
+        text: "Overview",
+    };
+}
 
 // A new header for our custom page
 export function headerItemCustom<S extends AppStateKeyed, A extends AnyAction>(orApp: OrApp<S>): HeaderItem {
@@ -38,6 +50,7 @@ export function headerItemCustom<S extends AppStateKeyed, A extends AnyAction>(o
 }
 
 export const DefaultHeaderMainMenu: {[name: string]: HeaderItem} = {
+    overview: headerItemOverview(orApp),  // New overview tab
     map: headerItemMap(orApp),
     assets: headerItemAssets(orApp),
     custom: headerItemCustom(orApp)

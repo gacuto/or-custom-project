@@ -1,5 +1,8 @@
 /* page-overview.css - Overview Page Styles */
+// style.ts
+import { css } from 'lit';
 
+export const pageOverviewStyles = css`
 :host {
     display: flex;
     flex-direction: column;
@@ -274,3 +277,4 @@
     padding: 30px;
     font-size: 16px;
 }
+`;

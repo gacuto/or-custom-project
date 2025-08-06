@@ -36,7 +36,7 @@ export function headerItemOverview<S extends AppStateKeyed, A extends AnyAction>
     return {
         icon: "view-dashboard",
         href: "overview",
-        text: "Overview",
+        text: "Overview TEST",
     };
 }
 
